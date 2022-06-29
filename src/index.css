@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Lato', serif;
+}
+
+body {
+    background-image: url(./assets/bg-pattern.jpg);
+}
+
+@layer base {
+    li {
+        @apply px-2;
+        @apply cursor-pointer;
+    }
+}
