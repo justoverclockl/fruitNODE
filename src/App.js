@@ -14,7 +14,7 @@ function App() {
                 <Route exact path="/" element={<Home />} />
                 <Route path="/shop" element={<Store />} />
                 <Route path="/redux" element={<ReduxTest />} />
-                <Route path="/login" element={<Register />} />
+                <Route path="/register" element={<Register />} />
                 {/* Ultima Route per le error Page */}
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

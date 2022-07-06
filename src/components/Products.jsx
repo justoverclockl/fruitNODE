@@ -19,11 +19,13 @@ import {
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
 import Likes from './Likes'
-
+import AddIcon from '@mui/icons-material/Add'
+import AddFruitModal from './AddFruitModal'
 const Products = () => {
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
+    const [addFruitModal, setAddFruitModal] = useState(false)
     const togglePopup = () => setPopup(!popup)
     const cartSuccess = () => {
         toast.success('Prodotto Aggiunto al carrello!', {
@@ -70,6 +72,14 @@ const Products = () => {
                     variant="standard"
                     fullWidth
                 />
+                <div>
+                    <button
+                        onClick={() => setAddFruitModal(!addFruitModal)}
+                        className="p-1 bg-green-800 hover:bg-green-600 text-white rounded-lg ml-4"
+                    >
+                        <AddIcon />
+                    </button>
+                </div>
             </div>
             <div className="relative grid mx-auto gap-y-12 justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {error !== '' ? (
@@ -156,6 +166,7 @@ const Products = () => {
                 {popup && (
                     <SingleFruitPopup state={setPopup} fruit={popupData} />
                 )}
+                {addFruitModal && <AddFruitModal state={setAddFruitModal} />}
             </div>
             <ScrollToTop />
             <Social />

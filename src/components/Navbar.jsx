@@ -9,6 +9,8 @@ import RegisterLoginButtons from './RegisterLoginButtons'
 import { selectUser } from '../states/registerSlice'
 import NavbarProfile from './NavbarProfile'
 import { cartTotalItems } from '../states/cartSlice'
+import LoginButton from './LoginButton'
+import LoginModal from './LoginModal'
 
 const Navbar = () => {
     const user = useSelector(selectUser)
@@ -18,6 +20,7 @@ const Navbar = () => {
 
     const changePopupState = () => {
         setOpenCart(!openCart)
+        console.log('funziona?')
     }
 
     return (
@@ -60,6 +63,7 @@ const Navbar = () => {
                     ) : (
                         <NavbarProfile props={user} />
                     )}
+                    <LoginButton />
                 </ul>
             </div>
         </div>
