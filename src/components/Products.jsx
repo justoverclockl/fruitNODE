@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment } from '@mui/material'
 import toast, { Toaster } from 'react-hot-toast'
+
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {
     getProducts,
     selectAllProducts,
@@ -18,15 +21,22 @@ import {
     productStatus,
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
-import Likes from './Likes'
 import AddIcon from '@mui/icons-material/Add'
 import AddFruitModal from './AddFruitModal'
+import DeleteFruitModal from './DeleteFruitModal'
+import EditFruitModal from './EditFruitModal'
 const Products = () => {
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
     const [search, setSearch] = useState('')
     const [addFruitModal, setAddFruitModal] = useState(false)
+    const [deleteFruitModal, setDeleteFruitModal] = useState(false)
+    const [deleteFruitData, setDeleteFruitData] = useState(null)
+    const [editFruitModal, setEditFruitModal] = useState(false)
     const togglePopup = () => setPopup(!popup)
+    const toggleDeletePopUp = () => setDeleteFruitModal(!deleteFruitModal)
+    const toggleEditPopUp = () => setEditFruitModal(!editFruitModal)
+    const [editFruitData, setEditFruitData] = useState(null)
     const cartSuccess = () => {
         toast.success('Prodotto Aggiunto al carrello!', {
             style: {
@@ -127,10 +137,28 @@ const Products = () => {
                                 src={fruit.image}
                                 alt={fruit.name}
                             />
-                            <div>
-                                <Likes />
+                            <div className="flex justify-end mb-4">
+                                <button
+                                    onClick={() => [
+                                        toggleDeletePopUp(),
+                                        setDeleteFruitData(fruit),
+                                    ]}
+                                    className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
+                                >
+                                    <DeleteForeverIcon />
+                                </button>
+                                <button
+                                    onClick={() => [
+                                        toggleEditPopUp(),
+                                        setEditFruitData(fruit),
+                                    ]}
+                                    className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
+                                >
+                                    <EditIcon />
+                                </button>
                             </div>
-                            <div className="flex items-center justify-between px-4 py-2 bg-green-700 py-3">
+
+                            <div className="flex items-center justify-between px-4  bg-green-700 py-3">
                                 <h1 className="text-lg font-bold text-white">
                                     {fruit.price}€
                                 </h1>
@@ -170,6 +198,18 @@ const Products = () => {
             </div>
             <ScrollToTop />
             <Social />
+            {deleteFruitModal && (
+                <DeleteFruitModal
+                    state={setDeleteFruitModal}
+                    fruit={deleteFruitData}
+                />
+            )}
+            {editFruitModal && (
+                <EditFruitModal
+                    state={setEditFruitModal}
+                    fruit={editFruitData}
+                />
+            )}
         </div>
     )
 }
