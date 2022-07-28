@@ -146,17 +146,14 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                    carbohydrates:
-                                                        e.target.value,
+                                                carbohydrates: e.target.value,
                                             })
                                         }}
                                         name="carbohydrates"
                                         label="Carboidrati"
                                         variant="filled"
                                         color="success"
-                                        defaultValue={
-                                            fruit.carbohydrates
-                                        }
+                                        defaultValue={fruit.carbohydrates}
                                         type="number"
                                         style={{ width: '100%' }}
                                     />
@@ -165,8 +162,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                             setFormState({
                                                 ...formState,
 
-                                                    protein: e.target.value,
-
+                                                protein: e.target.value,
                                             })
                                         }}
                                         name="protein"
@@ -181,7 +177,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                    fat: e.target.value,
+                                                fat: e.target.value,
                                             })
                                         }}
                                         name="fat"
@@ -196,7 +192,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                    calories: e.target.value,
+                                                calories: e.target.value,
                                             })
                                         }}
                                         name="calories"
@@ -211,7 +207,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                    sugar: e.target.value,
+                                                sugar: e.target.value,
                                             })
                                         }}
                                         name="sugar"

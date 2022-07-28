@@ -11,7 +11,6 @@ import { cartTotalItems } from '../states/cartSlice'
 import LoginButton from './LoginButton'
 
 const Navbar = () => {
-
     const totalItemsInCart = useSelector(cartTotalItems)
     const [openCart, setOpenCart] = useState(false)
 
@@ -55,7 +54,7 @@ const Navbar = () => {
                         </Badge>
                     </li>
 
-                        <RegisterLoginButtons />
+                    <RegisterLoginButtons />
                     <LoginButton />
                 </ul>
             </div>

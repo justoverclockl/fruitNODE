@@ -27,11 +27,9 @@ const SingleFruitPopup = ({ fruit, state }) => {
                 </p>
                 <p className="px-8">
                     I principali valori nutrizionali sono: <b>Calorie: </b>
-                    {fruit.calories}, <b>Carboidrati: </b>{' '}
-                    {fruit.carbohydrates},<b>Grassi: </b>{' '}
-                    {fruit.fat}, <b>Proteine: </b>{' '}
-                    {fruit.protein} e<b> Zuccheri: </b>{' '}
-                    {fruit.sugar}.
+                    {fruit.calories}, <b>Carboidrati: </b> {fruit.carbohydrates}
+                    ,<b>Grassi: </b> {fruit.fat}, <b>Proteine: </b>{' '}
+                    {fruit.protein} e<b> Zuccheri: </b> {fruit.sugar}.
                 </p>
                 <button
                     onClick={closePopup}
