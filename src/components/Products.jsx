@@ -18,7 +18,6 @@ import {
     selectAllProducts,
     loadingState,
     errorState,
-    productStatus,
 } from '../states/storeSlice'
 import { insertInCart } from '../states/cartSlice'
 import AddIcon from '@mui/icons-material/Add'
@@ -50,15 +49,12 @@ const Products = () => {
     // sezione redux
     const allFruits = useSelector(selectAllProducts)
     const isLoading = useSelector(loadingState)
-    const fruitStatus = useSelector(productStatus)
     const error = useSelector(errorState)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (fruitStatus !== 'succeeded') {
-            dispatch(getProducts())
-        }
-    }, [fruitStatus, dispatch])
+        dispatch(getProducts())
+    }, [dispatch])
 
     return (
         <div className="max-w-[1100px] mt-[8rem] mx-auto py-8 w-full my-20 min-h-[750px]">
@@ -97,100 +93,100 @@ const Products = () => {
                 ) : null}
 
                 {!error && isLoading && <LoadingIndicator />}
-                {allFruits.fruits
-                    .filter((fruit) => {
-                        if (search === '') {
-                            return fruit
-                        } else if (
-                            fruit.name
-                                .toLowerCase()
-                                .includes(search.toLowerCase())
-                        ) {
-                            return fruit
-                        }
-                    })
-                    .map((fruit) => (
-                        <div
-                            key={fruit.name}
-                            className="relative max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg text-center"
-                        >
-                            <div className="px-4 py-2">
-                                <h1 className="text-3xl mt-4 font-bold text-gray-800 uppercase">
-                                    {fruit.name}
-                                </h1>
-                                <div className="flex mt-4 flex-wrap items-center text-sm justify-center">
-                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
-                                        Carboidrati:{' '}
-                                        {fruit.nutritions.carbohydrates}
-                                    </div>
-                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
-                                        Proteine: {fruit.nutritions.protein}
-                                    </div>
-                                    <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
-                                        Grassi: {fruit.nutritions.fat}%
+                {allFruits &&
+                    allFruits
+                        .filter((fruit) => {
+                            if (search === '') {
+                                return fruit
+                            } else if (
+                                fruit.name
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase())
+                            ) {
+                                return fruit
+                            }
+                        })
+                        .map((fruit, i) => (
+                            <div
+                                key={i}
+                                className="relative max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg text-center"
+                            >
+                                <div className="px-4 py-2">
+                                    <h1 className="text-3xl mt-4 font-bold text-gray-800 uppercase">
+                                        {fruit.name}
+                                    </h1>
+                                    <div className="flex mt-4 flex-wrap items-center text-sm justify-center">
+                                        <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                            Carboidrati: {fruit.carbohydrates}
+                                        </div>
+                                        <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                            Proteine: {fruit.protein}
+                                        </div>
+                                        <div className="bg-zinc-200 text-black p-[.2rem] rounded-md mr-2 mb-2">
+                                            Grassi: {fruit.fat}%
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <img
-                                className="object-cover w-full h-48 mt-2 mb-6 hover:scale-110 duration-500 overflow-hidden"
-                                src={fruit.image}
-                                alt={fruit.name}
-                            />
-                            <div className="flex justify-end mb-4">
-                                <button
-                                    onClick={() => [
-                                        toggleDeletePopUp(),
-                                        setDeleteFruitData(fruit),
-                                    ]}
-                                    className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
-                                >
-                                    <DeleteForeverIcon />
-                                </button>
-                                <button
-                                    onClick={() => [
-                                        toggleEditPopUp(),
-                                        setEditFruitData(fruit),
-                                    ]}
-                                    className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
-                                >
-                                    <EditIcon />
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between px-4  bg-green-700 py-3">
-                                <h1 className="text-lg font-bold text-white">
-                                    {fruit.price}€
-                                </h1>
-                                <div className="flex">
+                                <img
+                                    className="object-cover w-full h-48 mt-2 mb-6 hover:scale-110 duration-500 overflow-hidden"
+                                    src={fruit.image}
+                                    alt={fruit.name}
+                                />
+                                <div className="flex justify-end mb-4">
                                     <button
                                         onClick={() => [
-                                            cartSuccess(),
-                                            dispatch(
-                                                insertInCart({
-                                                    ...fruit,
-                                                    buyId: randomId(),
-                                                    quantity: 1,
-                                                })
-                                            ),
+                                            toggleDeletePopUp(),
+                                            setDeleteFruitData(fruit),
                                         ]}
-                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded hover:bg-green-300 focus:bg-green-200 focus:outline-none"
+                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
                                     >
-                                        Acquista
+                                        <DeleteForeverIcon />
                                     </button>
                                     <button
-                                        onClick={() => {
-                                            setPopupData(fruit)
-                                            togglePopup()
-                                        }}
-                                        className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-600 rounded hover:bg-orange-400 focus:bg-orange-600 focus:outline-none"
+                                        onClick={() => [
+                                            toggleEditPopUp(),
+                                            setEditFruitData(fruit),
+                                        ]}
+                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
                                     >
-                                        Dettagli
+                                        <EditIcon />
                                     </button>
                                 </div>
+
+                                <div className="flex items-center justify-between px-4  bg-green-700 py-3">
+                                    <h1 className="text-lg font-bold text-white">
+                                        {fruit.price}€
+                                    </h1>
+                                    <div className="flex">
+                                        <button
+                                            onClick={() => [
+                                                cartSuccess(),
+                                                dispatch(
+                                                    insertInCart({
+                                                        ...fruit,
+                                                        buyId: randomId(),
+                                                        quantity: 1,
+                                                    })
+                                                ),
+                                            ]}
+                                            className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded hover:bg-green-300 focus:bg-green-200 focus:outline-none"
+                                        >
+                                            Acquista
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setPopupData(fruit)
+                                                togglePopup()
+                                            }}
+                                            className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-600 rounded hover:bg-orange-400 focus:bg-orange-600 focus:outline-none"
+                                        >
+                                            Dettagli
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 {popup && (
                     <SingleFruitPopup state={setPopup} fruit={popupData} />
                 )}

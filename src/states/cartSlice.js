@@ -19,12 +19,9 @@ export const cartSlice = createSlice({
             if (fruitExist >= 0) {
                 state.cart[fruitExist].quantity += 1
                 state.cart[fruitExist].price =
-                    Number(action.payload.price.replace(/,/g, '.')).toFixed(2) *
-                    state.cart[fruitExist].quantity
+                    action.payload.price * state.cart[fruitExist].quantity
             } else {
-                const price = Number(
-                    action.payload.price.replace(/,/g, '.')
-                ).toFixed(2)
+                const price = action.payload.price
                 state.cart.push({
                     ...action.payload,
                     price,
@@ -33,7 +30,7 @@ export const cartSlice = createSlice({
             }
             state.totalAmount = state.cart
                 .map((price) => {
-                    return Number(price.price)
+                    return price.price
                 })
                 .reduce((acc, curr) => acc + curr, 0)
         },
@@ -45,16 +42,15 @@ export const cartSlice = createSlice({
             if (fruitExist >= 0) {
                 state.cart[fruitExist].quantity -= 1
                 state.cart[fruitExist].price =
-                    Number(
-                        state.cart[fruitExist].unitaryPrice.replace(/,/g, '.')
-                    ) * state.cart[fruitExist].quantity
+                    state.cart[fruitExist].unitaryPrice *
+                    state.cart[fruitExist].quantity
                 if (state.cart[fruitExist].quantity === 0) {
                     state.cart.splice(fruitExist, 1)
                 }
             }
             state.totalAmount = state.cart
                 .map((price) => {
-                    return Number(price.price)
+                    return price.price
                 })
                 .reduce((acc, curr) => acc + curr, 0)
         },

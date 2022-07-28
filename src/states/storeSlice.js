@@ -7,10 +7,11 @@ const initialState = {
     status: 'idle',
 }
 
-export const getProducts = createAsyncThunk('products/getFruits', async () => {
-    const url = 'https://fruits-develhope.herokuapp.com/api'
+export const getProducts = createAsyncThunk('fruit/getFruits', async () => {
     try {
-        const response = await fetch(url)
+        const response = await fetch(
+            `${process.env.REACT_APP_SERVER_BASE_URL}/api/fruits`
+        )
         return await response.json()
     } catch (err) {
         throw err
@@ -35,17 +36,6 @@ const storeState = createSlice({
                 state.status = 'failed'
                 state.isLoading = false
                 state.error = 'Impossibile caricare i dati dal server!'
-            })
-            .addDefaultCase((state, action) => {
-                if (
-                    action.type !== 'cart/insertInCart' &&
-                    action.type !== 'cart/removeFromCart' &&
-                    action.type !== 'cart/resetCart'
-                ) {
-                    state.status = 'idle'
-                    state.isLoading = false
-                    state.fruits = initialState
-                }
             })
     },
 })
