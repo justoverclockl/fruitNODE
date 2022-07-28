@@ -6,16 +6,13 @@ import Cart from './Cart'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import RegisterLoginButtons from './RegisterLoginButtons'
-import { selectUser } from '../states/registerSlice'
 import NavbarProfile from './NavbarProfile'
 import { cartTotalItems } from '../states/cartSlice'
 import LoginButton from './LoginButton'
-import LoginModal from './LoginModal'
 
 const Navbar = () => {
-    const user = useSelector(selectUser)
+
     const totalItemsInCart = useSelector(cartTotalItems)
-    const isEmpty = Object.keys(user).length === 0
     const [openCart, setOpenCart] = useState(false)
 
     const changePopupState = () => {
@@ -57,11 +54,8 @@ const Navbar = () => {
                             {openCart && <Cart setPopup={setOpenCart} />}
                         </Badge>
                     </li>
-                    {isEmpty ? (
+
                         <RegisterLoginButtons />
-                    ) : (
-                        <NavbarProfile props={user} />
-                    )}
                     <LoginButton />
                 </ul>
             </div>
