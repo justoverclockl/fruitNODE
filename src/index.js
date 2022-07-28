@@ -8,6 +8,7 @@ import usersReducer from './states/registerSlice'
 import cartReducer from './states/cartSlice'
 import addFruitReducer from './states/addProductSlice'
 import loginReducer from './states/loginSlice'
+import editFruitReducer from './states/editFruitSlice'
 import { Provider } from 'react-redux'
 import { combineReducers } from 'redux'
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
     users: usersReducer,
     cart: cartReducer,
     addFruit: addFruitReducer,
+    editFruit: editFruitReducer,
     auth: loginReducer,
 })
 

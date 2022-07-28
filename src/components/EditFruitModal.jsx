@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
+import { useDispatch } from 'react-redux'
+import { editFruit } from '../states/editFruitSlice'
+
+
 const EditFruitModal = ({ state, fruit }) => {
-    const [formState, setFormState] = useState({
-        genus: fruit.genus,
-        name: fruit.name,
-        image: fruit.image,
-        price: fruit.price,
-        family: fruit.family,
-        order: fruit.order,
-        carbohydrates: fruit.carbohydrates,
-        protein: fruit.protein,
-        fat: fruit.fat,
-        sugar: fruit.sugar,
-    })
+
+    const dispatch = useDispatch()
+    const [formState, setFormState] = useState({})
+    console.log(formState)
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        console.log(formState)
+        dispatch(editFruit({
+            data: formState,
+            id: fruit.id
+        }))
     }
 
     return (
@@ -161,7 +160,6 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-
                                                 protein: e.target.value,
                                             })
                                         }}

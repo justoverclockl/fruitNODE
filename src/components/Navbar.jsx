@@ -1,22 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Badge from '@mui/material/Badge'
 import LogoNavBar from '../assets/logonavbar.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Cart from './Cart'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import RegisterLoginButtons from './RegisterLoginButtons'
 import NavbarProfile from './NavbarProfile'
 import { cartTotalItems } from '../states/cartSlice'
 import LoginButton from './LoginButton'
+import { authData, getSession } from '../states/loginSlice'
 
 const Navbar = () => {
     const totalItemsInCart = useSelector(cartTotalItems)
     const [openCart, setOpenCart] = useState(false)
 
+    const dispatch = useDispatch()
+    const authSession = useSelector(authData)
+    console.log(authSession)
+
     const changePopupState = () => {
         setOpenCart(!openCart)
     }
+
+    useEffect(() => {
+        dispatch(getSession())
+    }, [dispatch])
 
     return (
         <div className="flex fixed top-0 w-screen z-20 justify-between items-center px-8 py-8 bg-green-500 text-white">
@@ -55,7 +64,10 @@ const Navbar = () => {
                     </li>
 
                     <RegisterLoginButtons />
-                    <LoginButton />
+                    {!authSession && <LoginButton />}
+                    {authSession && (
+                        <NavbarProfile props={authSession?.email} />
+                    )}
                 </ul>
             </div>
         </div>

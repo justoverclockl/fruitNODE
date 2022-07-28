@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
     loginData: null,
     isLoading: false,
+    sessionData: null,
 }
 
 export const loginToStore = createAsyncThunk(
@@ -33,11 +34,18 @@ const loginAuthSlice = createSlice({
         saveSession: (state, action) => {
             const actualStatus = state.loginData
             if (actualStatus.statusCode === 200) {
-                sessionStorage.setItem('authSession', JSON.stringify({
-                    userEmail: actualStatus.email
-                }))
+                sessionStorage.setItem(
+                    'authSession',
+                    JSON.stringify({
+                        userEmail: actualStatus.email,
+                    })
+                )
             }
-        }
+        },
+        getSession: (state, action) => {
+            const session = sessionStorage.getItem('authSession')
+            state.sessionData = JSON.parse(session)
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -55,6 +63,7 @@ const loginAuthSlice = createSlice({
     },
 })
 
-export const { saveSession } = loginAuthSlice.actions
-export const authData = state => state.auth.loginData
+export const { saveSession, getSession } = loginAuthSlice.actions
+export const authData = (state) => state.auth.loginData
+export const session = (state) => state.auth.sessionData
 export default loginAuthSlice.reducer

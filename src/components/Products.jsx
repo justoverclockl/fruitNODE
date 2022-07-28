@@ -24,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add'
 import AddFruitModal from './AddFruitModal'
 import DeleteFruitModal from './DeleteFruitModal'
 import EditFruitModal from './EditFruitModal'
+
 const Products = () => {
     const [popup, setPopup] = useState(false)
     const [popupData, setPopupData] = useState(null)
@@ -32,10 +33,12 @@ const Products = () => {
     const [deleteFruitModal, setDeleteFruitModal] = useState(false)
     const [deleteFruitData, setDeleteFruitData] = useState(null)
     const [editFruitModal, setEditFruitModal] = useState(false)
+    const [editFruitData, setEditFruitData] = useState(null)
+
     const togglePopup = () => setPopup(!popup)
     const toggleDeletePopUp = () => setDeleteFruitModal(!deleteFruitModal)
     const toggleEditPopUp = () => setEditFruitModal(!editFruitModal)
-    const [editFruitData, setEditFruitData] = useState(null)
+
     const cartSuccess = () => {
         toast.success('Prodotto Aggiunto al carrello!', {
             style: {
@@ -95,6 +98,7 @@ const Products = () => {
                 {!error && isLoading && <LoadingIndicator />}
                 {allFruits &&
                     allFruits
+                        // eslint-disable-next-line
                         .filter((fruit) => {
                             if (search === '') {
                                 return fruit

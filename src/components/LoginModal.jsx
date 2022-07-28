@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import LoginIcon from '@mui/icons-material/Login'
 import CloseIcon from '@mui/icons-material/Close'
-import { useDispatch, useSelector } from 'react-redux'
-import { authData, loginToStore, saveSession } from '../states/loginSlice'
-
+import { useDispatch } from 'react-redux'
+import { getSession, loginToStore, saveSession } from '../states/loginSlice'
 
 const LoginModal = ({ state }) => {
-    
     const [formData, setFormData] = useState({
         email: null,
         password: null,
     })
 
-    const auth = useSelector(authData)
     const dispatch = useDispatch()
 
     const handleLogin = (e) => {
@@ -22,21 +19,21 @@ const LoginModal = ({ state }) => {
         dispatch(loginToStore(formData))
         setTimeout(() => {
             dispatch(saveSession())
+            dispatch(getSession())
         }, 1000)
     }
 
     return (
-        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg'>
-            <div className=' flex flex-col w-screen h-screen justify-center items-center'>
-                <div
-                    className='relative bg-zinc-100 w-[500px] h-[500px] rounded-lg shadow-2xl flex justify-center items-center flex-col'>
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg">
+            <div className=" flex flex-col w-screen h-screen justify-center items-center">
+                <div className="relative bg-zinc-100 w-[500px] h-[500px] rounded-lg shadow-2xl flex justify-center items-center flex-col">
                     <div
                         onClick={() => state(false)}
-                        className='absolute right-2 top-2 text-black cursor-pointer'
+                        className="absolute right-2 top-2 text-black cursor-pointer"
                     >
                         <CloseIcon />
                     </div>
-                    <h1 className='font-bold text-4xl mb-8 text-green-900 '>
+                    <h1 className="font-bold text-4xl mb-8 text-green-900 ">
                         Login
                     </h1>
                     <form onSubmit={handleLogin}>
@@ -47,17 +44,20 @@ const LoginModal = ({ state }) => {
                                     width: '35ch',
                                 },
                             }}
-                            autoComplete='off'
+                            autoComplete="off"
                         >
                             <div>
                                 <TextField
                                     required
-                                    inputProps={{ pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$' }}
-                                    id='email'
-                                    label='Email - Richiesto'
-                                    variant='filled'
-                                    color='success'
-                                    type='email'
+                                    inputProps={{
+                                        pattern:
+                                            '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
+                                    }}
+                                    id="email"
+                                    label="Email - Richiesto"
+                                    variant="filled"
+                                    color="success"
+                                    type="email"
                                     onChange={(e) =>
                                         setFormData({
                                             ...formData,
@@ -69,11 +69,11 @@ const LoginModal = ({ state }) => {
                             <div>
                                 <TextField
                                     required
-                                    id='password'
-                                    label='Password - Richiesto'
-                                    variant='filled'
-                                    color='success'
-                                    type='password'
+                                    id="password"
+                                    label="Password - Richiesto"
+                                    variant="filled"
+                                    color="success"
+                                    type="password"
                                     onChange={(e) =>
                                         setFormData({
                                             ...formData,
@@ -83,10 +83,11 @@ const LoginModal = ({ state }) => {
                                 />
                             </div>
                         </Box>
-                        <div className='mt-4 flex justify-center'>
+                        <div className="mt-4 flex justify-center">
                             <button
-                                type='submit'
-                                className='p-2 bg-orange-400 text-white text-2xl mt-4 rounded-md mr-2'>
+                                type="submit"
+                                className="p-2 bg-orange-400 text-white text-2xl mt-4 rounded-md mr-2"
+                            >
                                 <LoginIcon /> Login
                             </button>
                         </div>
