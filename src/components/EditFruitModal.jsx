@@ -7,15 +7,13 @@ const EditFruitModal = ({ state, fruit }) => {
         genus: fruit.genus,
         name: fruit.name,
         image: fruit.image,
-        price: null,
+        price: fruit.price,
         family: fruit.family,
         order: fruit.order,
-        nutritions: {
-            carbohydrates: fruit.nutritions.carbohydrates,
-            protein: fruit.nutritions.protein,
-            fat: fruit.nutritions.fat,
-            sugar: fruit.nutritions.sugar,
-        },
+        carbohydrates: fruit.carbohydrates,
+        protein: fruit.protein,
+        fat: fruit.fat,
+        sugar: fruit.sugar,
     })
     const handleFormSubmit = (e) => {
         e.preventDefault()
@@ -101,7 +99,14 @@ const EditFruitModal = ({ state, fruit }) => {
                                         variant="filled"
                                         color="success"
                                         type="number"
+                                        defaultValue={fruit.price}
                                         style={{ width: '100%' }}
+                                        onChange={(e) => {
+                                            setFormState({
+                                                ...formState,
+                                                price: e.target.value,
+                                            })
+                                        }}
                                     />
                                     <TextField
                                         onChange={(e) => {
@@ -141,10 +146,8 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                nutritions: {
                                                     carbohydrates:
                                                         e.target.value,
-                                                },
                                             })
                                         }}
                                         name="carbohydrates"
@@ -152,7 +155,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                         variant="filled"
                                         color="success"
                                         defaultValue={
-                                            fruit.nutritions.carbohydrates
+                                            fruit.carbohydrates
                                         }
                                         type="number"
                                         style={{ width: '100%' }}
@@ -161,16 +164,16 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                nutritions: {
+
                                                     protein: e.target.value,
-                                                },
+
                                             })
                                         }}
                                         name="protein"
                                         label="Proteine"
                                         variant="filled"
                                         color="success"
-                                        defaultValue={fruit.nutritions.protein}
+                                        defaultValue={fruit.protein}
                                         type="number"
                                         style={{ width: '100%' }}
                                     />
@@ -178,16 +181,14 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                nutritions: {
                                                     fat: e.target.value,
-                                                },
                                             })
                                         }}
                                         name="fat"
                                         label="Grassi"
                                         variant="filled"
                                         color="success"
-                                        defaultValue={fruit.nutritions.fat}
+                                        defaultValue={fruit.fat}
                                         type="number"
                                         style={{ width: '100%' }}
                                     />
@@ -195,9 +196,7 @@ const EditFruitModal = ({ state, fruit }) => {
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                nutritions: {
                                                     calories: e.target.value,
-                                                },
                                             })
                                         }}
                                         name="calories"
@@ -205,23 +204,21 @@ const EditFruitModal = ({ state, fruit }) => {
                                         variant="filled"
                                         color="success"
                                         type="number"
-                                        defaultValue={fruit.nutritions.calories}
+                                        defaultValue={fruit.calories}
                                         style={{ width: '100%' }}
                                     />
                                     <TextField
                                         onChange={(e) => {
                                             setFormState({
                                                 ...formState,
-                                                nutritions: {
                                                     sugar: e.target.value,
-                                                },
                                             })
                                         }}
                                         name="sugar"
                                         label="Zuccheri"
                                         variant="filled"
                                         color="success"
-                                        defaultValue={fruit.nutritions.sugar}
+                                        defaultValue={fruit.sugar}
                                         type="number"
                                         style={{ width: '100%' }}
                                     />

@@ -20,7 +20,6 @@ const Navbar = () => {
 
     const changePopupState = () => {
         setOpenCart(!openCart)
-        console.log('funziona?')
     }
 
     return (
