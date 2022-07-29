@@ -10,7 +10,7 @@ const EditFruitModal = ({ state, fruit }) => {
 
     const dispatch = useDispatch()
     const [formState, setFormState] = useState({})
-    console.log(formState)
+
     const handleFormSubmit = (e) => {
         e.preventDefault()
         dispatch(editFruit({

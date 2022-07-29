@@ -26,16 +26,21 @@ const LoginModal = ({ state }) => {
     return (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 backdrop-blur-lg">
             <div className=" flex flex-col w-screen h-screen justify-center items-center">
-                <div className="relative bg-zinc-100 w-[500px] h-[500px] rounded-lg shadow-2xl flex justify-center items-center flex-col">
+                <div className="relative bg-zinc-100 w-[450px] h-[400px] rounded-lg shadow-2xl flex justify-center items-center flex-col">
                     <div
                         onClick={() => state(false)}
                         className="absolute right-2 top-2 text-black cursor-pointer"
                     >
                         <CloseIcon />
                     </div>
-                    <h1 className="font-bold text-4xl mb-8 text-green-900 ">
-                        Login
-                    </h1>
+                    <div>
+                        <h1 className="font-bold text-4xl mb-8 text-green-900 ">
+                            Login
+                        </h1>
+                    </div>
+                    <div className="text-black mb-3 w-[35ch]">
+                        <p>Inserisci email e password per effettuare il login. Tutti i campi sono obbligatori.</p>
+                    </div>
                     <form onSubmit={handleLogin}>
                         <Box
                             sx={{

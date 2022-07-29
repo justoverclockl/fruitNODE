@@ -8,7 +8,7 @@ const initialState = {
 
 export const addFruitToDatabase = createAsyncThunk(
     'fruit/addFruit',
-    async (payload) => {
+    async (payload, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/fruits`,
@@ -22,7 +22,7 @@ export const addFruitToDatabase = createAsyncThunk(
             )
             return response.json()
         } catch (err) {
-            throw err
+            return rejectWithValue(err.response.data)
         }
     }
 )

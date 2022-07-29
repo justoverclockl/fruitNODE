@@ -5,7 +5,6 @@ import Home from './pages/Home'
 import Store from './pages/Store'
 import ErrorPage from './pages/ErrorPage'
 import Register from './components/Register'
-import ReduxTest from './components/ReduxTest'
 
 function App() {
     return (
@@ -13,7 +12,6 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/shop" element={<Store />} />
-                <Route path="/redux" element={<ReduxTest />} />
                 <Route path="/register" element={<Register />} />
                 {/* Ultima Route per le error Page */}
                 <Route path="*" element={<ErrorPage />} />

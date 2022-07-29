@@ -1,24 +1,23 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getProducts } from './storeSlice'
 
 const initialState = {
     error: '',
     response: null,
-    isLoading: true,
+    isLoading: false,
 }
 
-export const editFruit = createAsyncThunk(
+export const deleteFruit = createAsyncThunk(
     'fruit/editFruit',
-    async ({ data, id }, { dispatch, rejectWithValue }) => {
+    async (id,{ dispatch, rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/fruits/${id}`,
                 {
-                    method: 'PATCH',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data),
                 }
             ).then((res) => dispatch(getProducts()))
             return response.json()
@@ -28,26 +27,24 @@ export const editFruit = createAsyncThunk(
     }
 )
 
-const editFruitSlice = createSlice({
-    name: 'editFruit',
+const deleteFruitSlice = createSlice({
+    name: 'deleteFruit',
     initialState,
     extraReducers: builder => {
         builder
-            .addCase(editFruit.pending, state => {
+            .addCase(deleteFruit.pending, state => {
                 state.isLoading = true
             })
-            .addCase(editFruit.fulfilled, (state, action) => {
+            .addCase(deleteFruit.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.response = action.payload
             })
-            .addCase(editFruit.rejected, (state, action) =>  {
+            .addCase(deleteFruit.rejected, (state, action) => {
                 state.isLoading = false
                 state.response = action.payload
-                state.error = 'Qualcosa è andato storto'
+                state.error = 'Impossibile eliminare il frutto dal database.'
             })
     }
 })
 
-export const editResponse = state => state.editFruit.response
-export const editError = state => state.editFruit.error
-export default editFruitSlice.reducer
+export default deleteFruitSlice.reducer

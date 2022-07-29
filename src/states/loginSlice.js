@@ -4,11 +4,13 @@ const initialState = {
     loginData: null,
     isLoading: false,
     sessionData: null,
+    isLoggedIn: false,
+    email: '',
 }
 
 export const loginToStore = createAsyncThunk(
     'login/loginAuth',
-    async (payload) => {
+    async (payload, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/auth/login`,
@@ -22,7 +24,7 @@ export const loginToStore = createAsyncThunk(
             )
             return response.json()
         } catch (err) {
-            throw err
+            return rejectWithValue(err.response.data)
         }
     }
 )
@@ -34,6 +36,8 @@ const loginAuthSlice = createSlice({
         saveSession: (state, action) => {
             const actualStatus = state.loginData
             if (actualStatus.statusCode === 200) {
+                state.email = actualStatus.email
+                state.isLoggedIn = true
                 sessionStorage.setItem(
                     'authSession',
                     JSON.stringify({

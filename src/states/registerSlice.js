@@ -9,7 +9,7 @@ const initialState = {
 
 export const addUserToDatabase = createAsyncThunk(
     'register/registerUser',
-    async (payload) => {
+    async (payload, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/users`,
@@ -23,7 +23,7 @@ export const addUserToDatabase = createAsyncThunk(
             )
             return response.json()
         } catch (err) {
-            throw err
+            return rejectWithValue(err.response.data)
         }
     }
 )

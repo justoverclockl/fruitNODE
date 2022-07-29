@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import { useDispatch, useSelector } from 'react-redux'
+import toast, { Toaster } from 'react-hot-toast'
 import {
     addFruitError,
     addFruitResponse,
@@ -29,6 +30,16 @@ const AddFruitModal = ({ state }) => {
         sugar: null,
     })
 
+    const fruitAddSuccess = (name) => {
+        toast.success(`Frutto ${name} Aggiunto al database!`, {
+            style: {
+                borderRadius: '10px',
+                background: '#18a700',
+                color: '#fff',
+            },
+        })
+    }
+
     const handleAddFruitToDatabase = (e) => {
         e.preventDefault()
         const checkNullData = Object.values(formData).some((o) => o === null)
@@ -42,6 +53,7 @@ const AddFruitModal = ({ state }) => {
         }
         if (!checkNullData) {
             dispatch(addFruitToDatabase(formData))
+            fruitAddSuccess(formData.name)
         }
     }
 
@@ -260,6 +272,7 @@ const AddFruitModal = ({ state }) => {
                         )}
                     </div>
                 </div>
+                <Toaster position="bottom-right" reverseOrder={false} />
             </div>
         </>
     )

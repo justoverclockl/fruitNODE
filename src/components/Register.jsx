@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addUserToDatabase, registerError } from '../states/registerSlice'
 import { registerSuccess } from '../states/registerSlice'
+import toast, { Toaster } from 'react-hot-toast'
 
 const Register = () => {
     const [username, setUsername] = useState('')
@@ -23,9 +24,20 @@ const Register = () => {
         password: password,
     }
 
+    const registerSuccessToast = () => {
+        toast.success('Registrazione effettuata con successo!', {
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(addUserToDatabase(submitUserData))
+        registerSuccessToast()
         setTimeout(() => {
             navigate('../shop', { replace: true })
         }, 4000)
@@ -87,17 +99,15 @@ const Register = () => {
                             />
                         </div>
                     </Box>
-                    <div>
-                        <p className="w-[300px] mb-4 mt-4 text-[14px]">
+                    <div className="w-[40ch] flex justify-center mx-auto mb-4 mt-4 text-[14px]">
                             L'invio dei dati serve a Fruit-Store solo ed
                             esclusivamente per l'utilizzo della piattaforma
                             stessa, è sottinteso che ruberemo tutti i tuoi dati.
-                        </p>
                     </div>
                     <div className="mt-4 flex justify-center">
                         <button
                             type="submit"
-                            className="p-2 bg-orange-400 text-white rounded-md mr-2"
+                            className="p-3 uppercase font-bold bg-orange-400 hover:bg-orange-600 mt-4 text-white rounded-md mr-2"
                         >
                             Registrati
                         </button>
@@ -114,6 +124,7 @@ const Register = () => {
                     )}
                 </form>
             </div>
+            <Toaster position="bottom-right" reverseOrder={false} />
         </div>
     )
 }
