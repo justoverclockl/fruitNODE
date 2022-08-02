@@ -2,7 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getProducts } from './storeSlice'
 
 const initialState = {
-    error: '',
+    error: {
+        message: '',
+        isFailed: false
+    },
     response: '',
     isLoading: true,
 }
@@ -42,7 +45,8 @@ const addProductSlice = createSlice({
             })
             .addCase(addFruitToDatabase.rejected, (state) => {
                 state.isLoading = false
-                state.error = 'Impossibile aggiungere frutto al database'
+                state.error.message = 'Impossibile aggiungere frutto al database'
+                state.error.isFailed = true
             })
     },
 })

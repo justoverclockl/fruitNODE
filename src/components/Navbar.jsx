@@ -16,7 +16,7 @@ const Navbar = () => {
     const [openCart, setOpenCart] = useState(false)
 
     const dispatch = useDispatch()
-    const authSession = useSelector(authData)
+    const authSession = JSON.parse(sessionStorage.getItem('authSession'))
     console.log(authSession)
 
     const changePopupState = () => {
@@ -66,7 +66,7 @@ const Navbar = () => {
                     <RegisterLoginButtons />
                     {!authSession && <LoginButton />}
                     {authSession && (
-                        <NavbarProfile props={authSession?.email} />
+                        <NavbarProfile props={authSession?.userEmail} />
                     )}
                 </ul>
             </div>

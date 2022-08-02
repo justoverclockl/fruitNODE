@@ -218,12 +218,12 @@ const EditFruitModal = ({ state, fruit }) => {
                                     />
                                 </div>
                             </Box>
-                            <div className="mt-4 flex mx-auto">
+                            <div className="mt-4 flex mx-auto flex justify-center">
                                 <button
                                     type="submit"
                                     className=" p-2 text-lg bg-orange-400 text-white rounded-md mr-2"
                                 >
-                                    Aggiungi Frutto
+                                    Modifica Frutto
                                 </button>
                             </div>
                         </form>
