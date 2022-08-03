@@ -9,7 +9,7 @@ const initialState = {
 
 export const deleteFruit = createAsyncThunk(
     'fruit/editFruit',
-    async (id,{ dispatch, rejectWithValue }) => {
+    async (id, { dispatch, rejectWithValue }) => {
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/fruits/${id}`,
@@ -30,9 +30,9 @@ export const deleteFruit = createAsyncThunk(
 const deleteFruitSlice = createSlice({
     name: 'deleteFruit',
     initialState,
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder
-            .addCase(deleteFruit.pending, state => {
+            .addCase(deleteFruit.pending, (state) => {
                 state.isLoading = true
             })
             .addCase(deleteFruit.fulfilled, (state, action) => {
@@ -44,7 +44,7 @@ const deleteFruitSlice = createSlice({
                 state.response = action.payload
                 state.error = 'Impossibile eliminare il frutto dal database.'
             })
-    }
+    },
 })
 
 export default deleteFruitSlice.reducer

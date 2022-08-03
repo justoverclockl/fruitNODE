@@ -100,9 +100,9 @@ const Register = () => {
                         </div>
                     </Box>
                     <div className="w-[40ch] flex justify-center mx-auto mb-4 mt-4 text-[14px]">
-                            L'invio dei dati serve a Fruit-Store solo ed
-                            esclusivamente per l'utilizzo della piattaforma
-                            stessa, è sottinteso che ruberemo tutti i tuoi dati.
+                        L'invio dei dati serve a Fruit-Store solo ed
+                        esclusivamente per l'utilizzo della piattaforma stessa,
+                        è sottinteso che ruberemo tutti i tuoi dati.
                     </div>
                     <div className="mt-4 flex justify-center">
                         <button

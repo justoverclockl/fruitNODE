@@ -9,7 +9,8 @@ import RegisterLoginButtons from './RegisterLoginButtons'
 import NavbarProfile from './NavbarProfile'
 import { cartTotalItems } from '../states/cartSlice'
 import LoginButton from './LoginButton'
-import { authData, getSession } from '../states/loginSlice'
+import { getSession } from '../states/loginSlice'
+import LogoutButton from './LogoutButton'
 
 const Navbar = () => {
     const totalItemsInCart = useSelector(cartTotalItems)
@@ -17,7 +18,6 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
     const authSession = JSON.parse(sessionStorage.getItem('authSession'))
-    console.log(authSession)
 
     const changePopupState = () => {
         setOpenCart(!openCart)
@@ -62,8 +62,8 @@ const Navbar = () => {
                             {openCart && <Cart setPopup={setOpenCart} />}
                         </Badge>
                     </li>
-
-                    <RegisterLoginButtons />
+                    {!authSession && <RegisterLoginButtons />}
+                    {authSession && <LogoutButton />}
                     {!authSession && <LoginButton />}
                     {authSession && (
                         <NavbarProfile props={authSession?.userEmail} />

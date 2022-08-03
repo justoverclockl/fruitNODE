@@ -17,7 +17,7 @@ const reducer = combineReducers({
     products: productsReducer,
     users: usersReducer,
     cart: cartReducer,
-    addFruit: addFruitReducer,
+    addNewFruit: addFruitReducer,
     editFruit: editFruitReducer,
     deleteFruit: deleteFruitReducer,
     auth: loginReducer,

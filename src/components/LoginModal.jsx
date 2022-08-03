@@ -20,6 +20,7 @@ const LoginModal = ({ state }) => {
         setTimeout(() => {
             dispatch(saveSession())
             dispatch(getSession())
+            window.location.reload()
         }, 1000)
     }
 
@@ -39,7 +40,10 @@ const LoginModal = ({ state }) => {
                         </h1>
                     </div>
                     <div className="text-black mb-3 w-[35ch]">
-                        <p>Inserisci email e password per effettuare il login. Tutti i campi sono obbligatori.</p>
+                        <p>
+                            Inserisci email e password per effettuare il login.
+                            Tutti i campi sono obbligatori.
+                        </p>
                     </div>
                     <form onSubmit={handleLogin}>
                         <Box

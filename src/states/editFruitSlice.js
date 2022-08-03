@@ -31,23 +31,23 @@ export const editFruit = createAsyncThunk(
 const editFruitSlice = createSlice({
     name: 'editFruit',
     initialState,
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder
-            .addCase(editFruit.pending, state => {
+            .addCase(editFruit.pending, (state) => {
                 state.isLoading = true
             })
             .addCase(editFruit.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.response = action.payload
             })
-            .addCase(editFruit.rejected, (state, action) =>  {
+            .addCase(editFruit.rejected, (state, action) => {
                 state.isLoading = false
                 state.response = action.payload
                 state.error = 'Qualcosa è andato storto'
             })
-    }
+    },
 })
 
-export const editResponse = state => state.editFruit.response
-export const editError = state => state.editFruit.error
+export const editResponse = (state) => state.editFruit.response
+export const editError = (state) => state.editFruit.error
 export default editFruitSlice.reducer

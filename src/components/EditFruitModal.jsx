@@ -5,18 +5,18 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useDispatch } from 'react-redux'
 import { editFruit } from '../states/editFruitSlice'
 
-
 const EditFruitModal = ({ state, fruit }) => {
-
     const dispatch = useDispatch()
     const [formState, setFormState] = useState({})
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        dispatch(editFruit({
-            data: formState,
-            id: fruit.id
-        }))
+        dispatch(
+            editFruit({
+                data: formState,
+                id: fruit.id,
+            })
+        )
     }
 
     return (

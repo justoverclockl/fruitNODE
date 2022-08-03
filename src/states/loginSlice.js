@@ -50,6 +50,10 @@ const loginAuthSlice = createSlice({
             const session = sessionStorage.getItem('authSession')
             state.sessionData = JSON.parse(session)
         },
+        logout: (state) => {
+            sessionStorage.removeItem('authSession')
+            state.sessionData = null
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -68,6 +72,7 @@ const loginAuthSlice = createSlice({
 })
 
 export const { saveSession, getSession } = loginAuthSlice.actions
+export const { logout } = loginAuthSlice.actions
 export const authData = (state) => state.auth.loginData
 export const session = (state) => state.auth.sessionData
 export default loginAuthSlice.reducer

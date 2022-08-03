@@ -35,6 +35,9 @@ const Products = () => {
     const [editFruitModal, setEditFruitModal] = useState(false)
     const [editFruitData, setEditFruitData] = useState(null)
 
+    const session = JSON.parse(sessionStorage.getItem('authSession'))
+    console.log(session)
+
     const togglePopup = () => setPopup(!popup)
     const toggleDeletePopUp = () => setDeleteFruitModal(!deleteFruitModal)
     const toggleEditPopUp = () => setEditFruitModal(!editFruitModal)
@@ -81,14 +84,16 @@ const Products = () => {
                     variant="standard"
                     fullWidth
                 />
-                <div>
-                    <button
-                        onClick={() => setAddFruitModal(!addFruitModal)}
-                        className="p-1 bg-green-800 hover:bg-green-600 text-white rounded-lg ml-4"
-                    >
-                        <AddIcon />
-                    </button>
-                </div>
+                {session && (
+                    <div>
+                        <button
+                            onClick={() => setAddFruitModal(!addFruitModal)}
+                            className="p-1 bg-green-800 hover:bg-green-600 text-white rounded-lg ml-4"
+                        >
+                            <AddIcon />
+                        </button>
+                    </div>
+                )}
             </div>
             <div className="relative grid mx-auto gap-y-12 justify-center items-center w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {error !== '' ? (
@@ -137,26 +142,28 @@ const Products = () => {
                                     src={fruit.image}
                                     alt={fruit.name}
                                 />
-                                <div className="flex justify-end mb-4">
-                                    <button
-                                        onClick={() => [
-                                            toggleDeletePopUp(),
-                                            setDeleteFruitData(fruit),
-                                        ]}
-                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
-                                    >
-                                        <DeleteForeverIcon />
-                                    </button>
-                                    <button
-                                        onClick={() => [
-                                            toggleEditPopUp(),
-                                            setEditFruitData(fruit),
-                                        ]}
-                                        className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
-                                    >
-                                        <EditIcon />
-                                    </button>
-                                </div>
+                                {session && (
+                                    <div className="flex justify-end mb-4">
+                                        <button
+                                            onClick={() => [
+                                                toggleDeletePopUp(),
+                                                setDeleteFruitData(fruit),
+                                            ]}
+                                            className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-red-600 rounded hover:bg-red-300 focus:bg-green-200 focus:outline-none"
+                                        >
+                                            <DeleteForeverIcon />
+                                        </button>
+                                        <button
+                                            onClick={() => [
+                                                toggleEditPopUp(),
+                                                setEditFruitData(fruit),
+                                            ]}
+                                            className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-orange-400 rounded hover:bg-orange-300 focus:bg-green-200 focus:outline-none"
+                                        >
+                                            <EditIcon />
+                                        </button>
+                                    </div>
+                                )}
 
                                 <div className="flex items-center justify-between px-4  bg-green-700 py-3">
                                     <h1 className="text-lg font-bold text-white">

@@ -2,19 +2,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getProducts } from './storeSlice'
 
 const initialState = {
-    error: {
-        message: '',
-        isFailed: false
-    },
+    errorResponse: '',
     response: '',
     isLoading: true,
 }
 
 export const addFruitToDatabase = createAsyncThunk(
     'fruit/addFruit',
-    async (payload, { dispatch ,rejectWithValue }) => {
+    async (payload, { dispatch }) => {
         try {
-            const response = await fetch(
+            return await fetch(
                 `${process.env.REACT_APP_SERVER_BASE_URL}/api/fruits`,
                 {
                     method: 'POST',
@@ -23,17 +20,24 @@ export const addFruitToDatabase = createAsyncThunk(
                     },
                     body: JSON.stringify(payload),
                 }
-            ).then((res) => dispatch(getProducts()))
-            return response.json()
+            ).then((res) => {
+                dispatch(getProducts())
+                return res
+            })
         } catch (err) {
-            return rejectWithValue(err.response.data)
+            throw err
         }
     }
 )
 
 const addProductSlice = createSlice({
-    name: 'addNewProduct',
+    name: 'addNeFruitToDb',
     initialState,
+    reducers: {
+        resetResponse: (state, action) => {
+            state.response = ''
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(addFruitToDatabase.pending, (state) => {
@@ -41,16 +45,17 @@ const addProductSlice = createSlice({
             })
             .addCase(addFruitToDatabase.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.response = 'Frutto aggiunto con successo al database'
+                state.response = 'Frutto aggiunto correttamente al database'
             })
             .addCase(addFruitToDatabase.rejected, (state) => {
                 state.isLoading = false
-                state.error.message = 'Impossibile aggiungere frutto al database'
-                state.error.isFailed = true
+                state.errorResponse =
+                    'Impossibile aggiungere il frutto al database'
             })
     },
 })
 
-export const addFruitError = (state) => state.addFruit.error
-export const addFruitResponse = (state) => state.addFruit.response
+export const { resetResponse } = addProductSlice.actions
+export const addFruitError = (state) => state.addNewFruit.errorResponse
+export const addFruitSuccess = (state) => state.addNewFruit.response
 export default addProductSlice.reducer
