@@ -21,7 +21,7 @@ const LoginModal = ({ state }) => {
             dispatch(saveSession())
             dispatch(getSession())
             window.location.reload()
-        }, 1000)
+        }, 100)
     }
 
     return (

@@ -11,8 +11,8 @@ const SingleFruitPopup = ({ fruit, state }) => {
 
     return (
         <div className="h-screen w-screen fixed top-1/2 flex items-center left-1/2 transform -translate-y-1/2 -translate-x-1/2 backdrop-blur-md z-30 hover:scale-110 duration-1000">
-            <div className="flex flex-col justify-center items-center inset-x-0 shadow-xl bg-white text-green-800 w-[500px] h-[600px] mx-auto -mt-1 rounded-xl">
-                <h1 className="font-bold text-4xl mb-4">{fruit.name}</h1>
+            <div className="flex flex-col justify-center items-center inset-x-0 shadow-xl bg-white text-green-800 w-[500px] h-fit mx-auto -mt-1 rounded-xl">
+                <h1 className="font-bold text-4xl mb-4 mt-8">{fruit.name}</h1>
                 <img
                     className="w-[300px] rounded-[100%] mb-4"
                     src={fruit.image}
@@ -39,7 +39,7 @@ const SingleFruitPopup = ({ fruit, state }) => {
                 </div>
                 <button
                     onClick={closePopup}
-                    className="mt-9 bg-orange-600 text-white p-4 rounded-lg"
+                    className="mt-9 bg-orange-600 text-white p-4 rounded-lg mb-8"
                 >
                     Chiudi
                 </button>

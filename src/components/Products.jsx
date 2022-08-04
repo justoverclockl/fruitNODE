@@ -36,7 +36,6 @@ const Products = () => {
     const [editFruitData, setEditFruitData] = useState(null)
 
     const session = JSON.parse(sessionStorage.getItem('authSession'))
-    console.log(session)
 
     const togglePopup = () => setPopup(!popup)
     const toggleDeletePopUp = () => setDeleteFruitModal(!deleteFruitModal)
@@ -170,7 +169,7 @@ const Products = () => {
                                         {fruit.price}€
                                     </h1>
                                     <div className="flex">
-                                        <button
+                                        {session && <button
                                             onClick={() => [
                                                 cartSuccess(),
                                                 dispatch(
@@ -178,13 +177,13 @@ const Products = () => {
                                                         ...fruit,
                                                         buyId: randomId(),
                                                         quantity: 1,
-                                                    })
+                                                    }),
                                                 ),
                                             ]}
-                                            className="mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded hover:bg-green-300 focus:bg-green-200 focus:outline-none"
+                                            className='mr-2 px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded hover:bg-green-300 focus:bg-green-200 focus:outline-none'
                                         >
                                             Acquista
-                                        </button>
+                                        </button>}
                                         <button
                                             onClick={() => {
                                                 setPopupData(fruit)

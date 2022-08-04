@@ -40,7 +40,7 @@ const Register = () => {
         registerSuccessToast()
         setTimeout(() => {
             navigate('../shop', { replace: true })
-        }, 4000)
+        }, 1000)
     }
 
     return (
